@@ -1,44 +1,36 @@
 const cursor = document.querySelector(".customCursor");
+const elements = document.querySelectorAll(".elem");
+const videos = document.querySelectorAll("video");
 
 document.addEventListener("mousemove", (e) => {
     const positionX = e.pageX - cursor.offsetWidth / 2;
     const positionY = e.pageY - cursor.offsetHeight / 2;
 
     cursor.style.transform = `translate(${positionX}px, ${positionY}px)`;
-
 });
 
-// hoverElements.forEach( (element , index) => {
 
-//     element.addEventListener("mouseover" , () => {
-//         videoElement.src = videoSrc[index];
-//         videoElement.style.display = "block";
-//         cursor.style.height = "125px";
-//         cursor.style.width = "125px";
-//         cursor.style.backgroundImage = `url(${videoSrc[0]})`
-//     })
+elements.forEach((element, index) => {
     
-//     element.addEventListener("mouseout" , () => {
-//         cursor.style.height = "10px";
-//         cursor.style.width = "10px";
-//         cursor.style.backgroundImage = `none`
-//     })
+    let video = videos[index];
 
-// })
-
-
-
-// hoverElements.forEach((element, index) => {
+    element.addEventListener("mouseenter", () => {
+        video.style.display = "block";
+        video.currentTime = 0; // Reset the video playback to the beginning
+        cursor.style.display = "none";
+    });
     
-//     element.addEventListener("mouseenter", () => {
-//         videoElement.src = videoSrc[index];
-//         videoElement.style.display = "block";
-//         videoElement.style.height = "125px";
-//         videoElement.style.width = "125px";
-//     });
+    element.addEventListener("mousemove", (e) => {
+        let video = videos[index];
+        const offsetX = e.clientX - element.getBoundingClientRect().left;
+        const offsetY = e.clientY - element.getBoundingClientRect().top;
 
-
-//     element.addEventListener("mouseleave", () => {
-//         videoElement.style.display = "none";
-//     });
-// });
+        video.style.transform = `translate(${offsetX - 122}px, ${offsetY - 115}px) scale(1)`;        
+    });
+    
+    element.addEventListener("mouseleave", () => {
+        cursor.style.display = "block";
+        video.style.transform = `scale(0.5)`; 
+        video.style.display = "none";
+    });
+});
