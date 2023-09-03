@@ -39,7 +39,7 @@ body {
 }
 
 .customCursor {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 10px;
@@ -220,10 +220,10 @@ nav {
           display: none;
           position: absolute;
           top: 0;
-          height: 225px;
-          width: 225px;
+          height: 325px;
+          width: 325px;
           border-radius: 50%;
-          transform: scale(0.5);
+          transform: scale(0.7);
           transition: all ease-out 0.25s;
           z-index: -1;
         }
@@ -301,6 +301,7 @@ nav {
     }
 
     & .pRight {
+      position: relative;
       width: 45%;
       height: 100%;
       display: flex;
@@ -308,12 +309,31 @@ nav {
       justify-content: flex-end;
 
       & .images {
-        width: 90%;
+        width: 75%;
         height: 90%;
-        background-color: black;
+        overflow: hidden;
+
+        & img {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+        }
+     
       }
     }
   }
+
+  @keyframes wave {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(10px); /* Adjust the wave width */
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
 
   .button {
 
