@@ -37,46 +37,60 @@ elements.forEach((element, index) => {
     });
 });
 
-gsap.registerPlugin(ScrollTrigger);
 
+
+gsap.registerPlugin(ScrollTrigger);
 
 gsap.to(".projects", {
     scrollTrigger: {
         trigger: ".fProjects",
-        start: "top top",
+        start: "top 0.2", // Start from 0.2
         endTrigger: ".last",
         end: "bottom bottom",
         pin: true,
         scrub: 1,
     },
-    y : "-505%",
-    ease : Power1
+    y: "-505%",
+    ease: Power1,
 });
 
+let imgs = document.querySelectorAll("img");
 
-let projects = document.querySelectorAll(".projects");
-
-projects.forEach((project, index) => {
+imgs.forEach((image, index) => {
     ScrollTrigger.create({
-        trigger: project,
-        start: "top top",
+        trigger: image,
+        start: "top 0.2", // Start from 0.2
         scrub: 1,
         onUpdate: (self) => {
             const progress = self.progress;
-            console.log(progress, index);
-        }
+            console.log(Math.floor(progress), index);
+
+            // Check when a specific image is in view and change the background color opacity accordingly
+            if ( index === 0) {
+                document.querySelector(".featured").style.backgroundColor = "rgba(0, 0, 0, 0)"; // Change background color opacity
+            } else if ( index === 1) {
+                document.querySelector(".featured").style.backgroundColor = "rgba(0, 0, 255, 0.05)"; // Change background color opacity
+            } else if ( index === 2) {
+                document.querySelector(".featured").style.backgroundColor = "#ffb6b9b4"; // Change background color opacity
+            } else if ( index === 3) {
+                document.querySelector(".featured").style.backgroundColor = "rgba(255, 45, 171, 0.12)"; // Change background color opacity
+            } else if ( index === 4) {
+                document.querySelector(".featured").style.backgroundColor = "#D6E8DB"; // Change background color opacity
+            } else if (index === 5) {
+                document.querySelector(".featured").style.backgroundColor = "rgba(0, 0, 0, 0)"; // Fully transparent background color when all images are completed
+            }
+        },
     });
 });
-
 
 gsap.to(".images img", {
     scrollTrigger: {
         trigger: ".fProjects",
-        start: "top top",
+        start: "top 0.2", // Start from 0.2
         endTrigger: ".last",
         end: "bottom bottom",
         scrub: 1,
     },
-    y: "-505%", // You can adjust the opacity as needed
-    ease: Power3, // Use the correct ease function
+    y: "-505%",
+    ease: Power3,
 });
